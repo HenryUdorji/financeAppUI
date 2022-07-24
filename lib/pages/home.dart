@@ -11,10 +11,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color.Colors.backgroundColor,
-      child: const Center(
-        child: Text('Finance UI', style: TextStyle(fontFamily: 'Nunito', fontSize: 25, color: Colors.black),),
+    return Scaffold(
+      backgroundColor: color.Colors.backgroundColor,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 200,
+              decoration: BoxDecoration(
+                  color: color.Colors.accentColor,
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40)
+                  )
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

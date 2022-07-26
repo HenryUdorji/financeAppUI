@@ -15,6 +15,17 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: color.Colors.backgroundColor,
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: color.Colors.accentColor,
+        unselectedItemColor: color.Colors.disableColor,
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'Report'),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Stock'),
+          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'Cards'),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -257,12 +268,12 @@ class TopSection extends StatelessWidget {
           color: color.Colors.backgroundColor,
           padding: const EdgeInsets.all(10),
           alignment: Alignment.topCenter,
-          height: 265,
+          height: 250,
         ),
         Container(
           padding: const EdgeInsets.all(10),
           alignment: Alignment.topCenter,
-          height: 180,
+          height: 150,
           decoration: BoxDecoration(
               color: color.Colors.accentColor,
               borderRadius: const BorderRadius.only(
@@ -297,7 +308,7 @@ class TopSection extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 100,
+          top: 80,
           left: 0,
           right: 0,
           child: Container(

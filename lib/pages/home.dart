@@ -16,7 +16,8 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            TopSection()
+            TopSection(),
+            ContactSection()
           ],
         ),
       ),
@@ -24,11 +25,56 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class Contacts {
+  String name;
+  String imageLink;
+
+  Contacts.name({required this.name, required this.imageLink});
+}
+
+class ContactSection extends StatelessWidget {
+  ContactSection({Key? key}) : super(key: key);
+
+  final List<Contacts> contacts = [
+
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.Colors.accentColor,
+              shape: BoxShape.circle
+            ),
+            child: Image.asset('assets/images/search.png', color: Colors.white, width: 30, height: 30,),
+          ),
+          Container(height: 50, width: 2, color: color.Colors.disableColor.withOpacity(0.9),),
+          ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: contacts.length,
+            itemBuilder: (context, index) {
+              return Container();
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
 class TopSection extends StatelessWidget {
   const TopSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var textStyle = Theme.of(context).textTheme;
+
     return Stack(
       children: [
         Container(
@@ -48,9 +94,6 @@ class TopSection extends StatelessWidget {
                   bottomRight: Radius.circular(40)
               )
           ),
-        ),
-        Positioned(child: Padding(
-          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -60,13 +103,14 @@ class TopSection extends StatelessWidget {
               Image.asset('assets/images/bell.png', width: 25, height: 25, color: Colors.white,)
             ],
           ),
-        ),),
+        ),
         Positioned(
-          top: 80,
+          top: 100,
+          left: 0,
+          right: 0,
           child: Container(
-            height: 150,
             margin: const EdgeInsets.symmetric(horizontal: 30),
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(20)
@@ -75,16 +119,42 @@ class TopSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Available Balance'),
-                        Text('18645')
+                        Text('Available Balance', style: textStyle.subtitle1,),
+                        Text('\$18,645', style: textStyle.headline1,)
                       ],
                     ),
-                    Image.asset('assets/images/man.png', width: 40, height: 40,),
+                    CircleAvatar(radius: 20, child:  Image.asset('assets/images/usa.png',),)
+                  ],
+                ),
+                const SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text('See More', style: textStyle.subtitle1,),
+                        const SizedBox(width: 5,),
+                        Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            color: color.Colors.accentColor.withOpacity(0.2),
+                            shape: BoxShape.circle
+                          ),
+                          child: Icon(Icons.arrow_forward_ios, size: 8, color: color.Colors.accentColor,),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text('US Dollar', style: textStyle.subtitle2,),
+                        Icon(Icons.arrow_drop_down, color: color.Colors.accentColor,)
+                      ],
+                    )
                   ],
                 )
               ],

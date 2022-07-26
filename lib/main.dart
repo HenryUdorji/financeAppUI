@@ -30,6 +30,7 @@ class MyApp extends StatelessWidget {
           bodyText1: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black),
           bodyText2: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
           subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: color.Colors.disableColor),
+          subtitle2: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: color.Colors.accentColor),
         )
       ),
       home: const HomePage(),

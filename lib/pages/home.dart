@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:finance_app_ui/colors.dart' as color;
+import 'package:finance_app_ui/models/contacts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,58 +16,90 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: color.Colors.backgroundColor,
       body: SafeArea(
         child: Column(
-          children: [
-            TopSection(),
-            ContactSection()
-          ],
+          children: [TopSection(), ContactSection(), SizedBox(height: 20,), ActionSection()],
         ),
       ),
     );
   }
 }
 
-class Contacts {
-  String name;
-  String imageLink;
-
-  Contacts.name({required this.name, required this.imageLink});
-}
-
-class ContactSection extends StatelessWidget {
-  ContactSection({Key? key}) : super(key: key);
-
-  final List<Contacts> contacts = [
-
-  ];
+class ActionSection extends StatelessWidget {
+  const ActionSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 30),
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20)
+      ),
+    );
+  }
+}
+
+
+class ContactSection extends StatelessWidget {
+  const ContactSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var textStyle = Theme.of(context).textTheme;
+
+    return Container(
       padding: const EdgeInsets.only(left: 20),
+      height: 60,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.Colors.accentColor,
-              shape: BoxShape.circle
+                color: color.Colors.accentColor, shape: BoxShape.circle),
+            child: Image.asset(
+              'assets/images/search.png',
+              color: Colors.white,
+              width: 30,
+              height: 30,
             ),
-            child: Image.asset('assets/images/search.png', color: Colors.white, width: 30, height: 30,),
           ),
-          Container(height: 50, width: 2, color: color.Colors.disableColor.withOpacity(0.9),),
-          ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: contacts.length,
-            itemBuilder: (context, index) {
-              return Container();
-            },
+          const SizedBox(width: 15,),
+          Container(
+            height: 40,
+            width: 2,
+            color: color.Colors.disableColor.withOpacity(0.3),
+          ),
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: contacts().length,
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: const EdgeInsets.only(right: 10, left: 10),
+                  child: Column(
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          contacts()[index].imageLink,
+                          fit: BoxFit.cover,
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      Text(contacts()[index].name, style: textStyle.bodyText2,)
+                    ],
+                  ),
+                );
+              },
+            ),
           )
         ],
       ),
     );
   }
 }
-
 
 class TopSection extends StatelessWidget {
   const TopSection({Key? key}) : super(key: key);
@@ -81,7 +114,7 @@ class TopSection extends StatelessWidget {
           color: color.Colors.backgroundColor,
           padding: const EdgeInsets.all(10),
           alignment: Alignment.topCenter,
-          height: 300,
+          height: 265,
         ),
         Container(
           padding: const EdgeInsets.all(10),
@@ -91,16 +124,32 @@ class TopSection extends StatelessWidget {
               color: color.Colors.accentColor,
               borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(40),
-                  bottomRight: Radius.circular(40)
-              )
-          ),
+                  bottomRight: Radius.circular(40))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Expanded(child: Image.asset('assets/images/man.png', width: 40, height: 40, alignment: Alignment.topLeft,)),
-              Image.asset('assets/images/search.png', width: 25, height: 25, color: Colors.white,),
-              const SizedBox(width: 20,),
-              Image.asset('assets/images/bell.png', width: 25, height: 25, color: Colors.white,)
+              Expanded(
+                  child: Image.asset(
+                'assets/images/man.png',
+                width: 40,
+                height: 40,
+                alignment: Alignment.topLeft,
+              )),
+              Image.asset(
+                'assets/images/search.png',
+                width: 25,
+                height: 25,
+                color: Colors.white,
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+              Image.asset(
+                'assets/images/bell.png',
+                width: 25,
+                height: 25,
+                color: Colors.white,
+              )
             ],
           ),
         ),
@@ -109,60 +158,84 @@ class TopSection extends StatelessWidget {
           left: 0,
           right: 0,
           child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30),
-            padding: const EdgeInsets.all(15),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20)
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Available Balance', style: textStyle.subtitle1,),
-                        Text('\$18,645', style: textStyle.headline1,)
-                      ],
-                    ),
-                    CircleAvatar(radius: 20, child:  Image.asset('assets/images/usa.png',),)
-                  ],
-                ),
-                const SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Text('See More', style: textStyle.subtitle1,),
-                        const SizedBox(width: 5,),
-                        Container(
-                          padding: const EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            color: color.Colors.accentColor.withOpacity(0.2),
-                            shape: BoxShape.circle
+              margin: const EdgeInsets.symmetric(horizontal: 30),
+              padding: const EdgeInsets.all(15),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Available Balance',
+                            style: textStyle.subtitle1,
                           ),
-                          child: Icon(Icons.arrow_forward_ios, size: 8, color: color.Colors.accentColor,),
-                        )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text('US Dollar', style: textStyle.subtitle2,),
-                        Icon(Icons.arrow_drop_down, color: color.Colors.accentColor,)
-                      ],
-                    )
-                  ],
-                )
-              ],
-            )
-          ),
+                          Text(
+                            '\$18,645',
+                            style: textStyle.headline1,
+                          )
+                        ],
+                      ),
+                      CircleAvatar(
+                        radius: 20,
+                        child: Image.asset(
+                          'assets/images/usa.png',
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'See More',
+                            style: textStyle.subtitle1,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                                color:
+                                    color.Colors.accentColor.withOpacity(0.2),
+                                shape: BoxShape.circle),
+                            child: Icon(
+                              Icons.arrow_forward_ios,
+                              size: 8,
+                              color: color.Colors.accentColor,
+                            ),
+                          )
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'US Dollar',
+                            style: textStyle.subtitle2,
+                          ),
+                          Icon(
+                            Icons.arrow_drop_down,
+                            color: color.Colors.accentColor,
+                          )
+                        ],
+                      )
+                    ],
+                  )
+                ],
+              )),
         ),
       ],
     );
   }
 }
-

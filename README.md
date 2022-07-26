@@ -3,7 +3,7 @@
 A Flutter project showcasing beautiful UI.
 
 ## Screenshot
-<img src="assets/img.png" width="300" height="667"/>  
+<img src="assets/images/img.png" width="300" height="667"/>  
 
 
 ## Credits

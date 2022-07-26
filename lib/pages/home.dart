@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:finance_app_ui/colors.dart' as color;
 import 'package:finance_app_ui/models/contacts.dart';
+import 'package:finance_app_ui/models/transaction.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,14 +16,95 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: color.Colors.backgroundColor,
       body: SafeArea(
-        child: Column(
-          children: const [
-            TopSection(),
-            ContactSection(),
-            SizedBox(height: 20,),
-            ActionSection()
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: const [
+              TopSection(),
+              ContactSection(),
+              SizedBox(
+                height: 20,
+              ),
+              ActionSection(),
+              SizedBox(
+                height: 20,
+              ),
+              TransactionSection()
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class TransactionSection extends StatelessWidget {
+  const TransactionSection({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var textStyle = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Transactions',
+                style: textStyle.headline3,
+              ),
+              Text(
+                'See all',
+                style: textStyle.subtitle2,
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Container(
+            height: 200,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20)
+            ),
+            child: ListView.builder(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                itemCount: transactions().length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                              color: transactions()[index].color.withOpacity(0.2),
+                              shape: BoxShape.circle
+                          ),
+                          child: Icon(transactions()[index].iconData, color: transactions()[index].color, size: 17,),
+                        ),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(transactions()[index].title, style: textStyle.bodyText1,),
+                              Text(transactions()[index].date, style: textStyle.subtitle1,),
+                            ],
+                          ),
+                        ),
+                        Text(transactions()[index].amount, style: textStyle.bodyText2,),
+                      ],
+                    ),
+                  );
+                }),
+          )
+        ],
       ),
     );
   }
@@ -37,15 +119,24 @@ class ActionSection extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20)
-      ),
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ActionItem(icon: Icons.add, color: color.Colors.accentColor, title: 'Add money'),
-          ActionItem(icon: Icons.credit_card_outlined, color: color.Colors.orangeColor, title: 'Send Money',),
-          ActionItem(icon: Icons.dashboard_outlined, color: color.Colors.disableColor, title: 'More',)
+          ActionItem(
+              icon: Icons.add,
+              color: color.Colors.accentColor,
+              title: 'Add money'),
+          ActionItem(
+            icon: Icons.credit_card_outlined,
+            color: color.Colors.orangeColor,
+            title: 'Send Money',
+          ),
+          ActionItem(
+            icon: Icons.dashboard_outlined,
+            color: color.Colors.disableColor,
+            title: 'More',
+          )
         ],
       ),
     );
@@ -53,7 +144,9 @@ class ActionSection extends StatelessWidget {
 }
 
 class ActionItem extends StatelessWidget {
-  const ActionItem({Key? key, required this.icon, required this.color, required this.title}) : super(key: key);
+  const ActionItem(
+      {Key? key, required this.icon, required this.color, required this.title})
+      : super(key: key);
   final IconData icon;
   final Color color;
   final String title;
@@ -67,17 +160,23 @@ class ActionItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               color: color.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(30)
+              borderRadius: BorderRadius.circular(30)),
+          child: Icon(
+            icon,
+            color: color,
           ),
-          child: Icon(icon, color: color,),
         ),
-        const SizedBox(height: 10,),
-        Text(title, style: Theme.of(context).textTheme.bodyText2,)
+        const SizedBox(
+          height: 10,
+        ),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText2,
+        )
       ],
     );
   }
 }
-
 
 class ContactSection extends StatelessWidget {
   const ContactSection({Key? key}) : super(key: key);
@@ -103,7 +202,9 @@ class ContactSection extends StatelessWidget {
               height: 30,
             ),
           ),
-          const SizedBox(width: 15,),
+          const SizedBox(
+            width: 15,
+          ),
           Container(
             height: 40,
             width: 2,
@@ -127,7 +228,10 @@ class ContactSection extends StatelessWidget {
                           height: 40,
                         ),
                       ),
-                      Text(contacts()[index].name, style: textStyle.bodyText2,)
+                      Text(
+                        contacts()[index].name,
+                        style: textStyle.bodyText2,
+                      )
                     ],
                   ),
                 );

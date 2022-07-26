@@ -1,4 +1,4 @@
-import 'package:finance_app_ui/pages/home.dart';
+import 'package:finance_app_ui/home.dart';
 import 'package:flutter/material.dart';
 
 import 'package:finance_app_ui/colors.dart' as color;

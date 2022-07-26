@@ -27,10 +27,10 @@ class MyApp extends StatelessWidget {
         textTheme: TextTheme(
           headline1: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
           headline3: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-          bodyText1: const TextStyle(fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black),
-          bodyText2: const TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
-          subtitle1: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: color.Colors.disableColor),
-          subtitle2: TextStyle(fontSize: 16, fontWeight: FontWeight.normal, color: color.Colors.accentColor),
+          bodyText1: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+          bodyText2: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Colors.black),
+          subtitle1: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: color.Colors.disableColor),
+          subtitle2: TextStyle(fontSize: 14, fontWeight: FontWeight.normal, color: color.Colors.accentColor),
         )
       ),
       home: const HomePage(),

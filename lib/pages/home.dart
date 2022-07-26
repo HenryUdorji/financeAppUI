@@ -16,7 +16,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: color.Colors.backgroundColor,
       body: SafeArea(
         child: Column(
-          children: [TopSection(), ContactSection(), SizedBox(height: 20,), ActionSection()],
+          children: const [
+            TopSection(),
+            ContactSection(),
+            SizedBox(height: 20,),
+            ActionSection()
+          ],
         ),
       ),
     );
@@ -29,12 +34,46 @@ class ActionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.symmetric(horizontal: 30),
-      height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20)
       ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ActionItem(icon: Icons.add, color: color.Colors.accentColor, title: 'Add money'),
+          ActionItem(icon: Icons.credit_card_outlined, color: color.Colors.orangeColor, title: 'Send Money',),
+          ActionItem(icon: Icons.dashboard_outlined, color: color.Colors.disableColor, title: 'More',)
+        ],
+      ),
+    );
+  }
+}
+
+class ActionItem extends StatelessWidget {
+  const ActionItem({Key? key, required this.icon, required this.color, required this.title}) : super(key: key);
+  final IconData icon;
+  final Color color;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+              color: color.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(30)
+          ),
+          child: Icon(icon, color: color,),
+        ),
+        const SizedBox(height: 10,),
+        Text(title, style: Theme.of(context).textTheme.bodyText2,)
+      ],
     );
   }
 }

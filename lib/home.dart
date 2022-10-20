@@ -76,7 +76,8 @@ class TransactionSection extends StatelessWidget {
             height: 10,
           ),
           Container(
-            height: 200,
+            height: 300,
+            margin: const EdgeInsets.only(bottom: 20),
             padding: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
                 color: Colors.white,
